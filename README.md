@@ -1,4 +1,4 @@
 PusherD
 =======
 
-MIT (C) Interpals 2017
+MIT (C) Interpals LLC 2017

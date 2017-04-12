@@ -1,0 +1,4 @@
+package: github.com/interpals/pusherd
+import:
+- package: gopkg.in/maddevsio/fcm.v1
+  version: ~1.0.1

@@ -1,0 +1,6 @@
+hash: 10df7b27f3c928256ce95a24ebcaadd7b36e19af6bb5b01a31529e3c671dba87
+updated: 2017-04-11T13:26:34.931291439Z
+imports:
+- name: gopkg.in/maddevsio/fcm.v1
+  version: ce4d50db2c75bd01096680c0dcf9609f5dc87400
+testImports: []
