@@ -1,6 +1,8 @@
-hash: 10df7b27f3c928256ce95a24ebcaadd7b36e19af6bb5b01a31529e3c671dba87
-updated: 2017-04-11T13:26:34.931291439Z
+hash: fdc2471f0cca5eac672dd29edba6c362a2949281404a1d757147ce2d3584b6f1
+updated: 2017-05-11T07:57:32.965652583Z
 imports:
+- name: github.com/streadway/amqp
+  version: afe8eee29a74d213b1f3fb2586058157c397da60
 - name: gopkg.in/maddevsio/fcm.v1
   version: ce4d50db2c75bd01096680c0dcf9609f5dc87400
 testImports: []
