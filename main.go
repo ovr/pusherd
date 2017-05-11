@@ -25,7 +25,7 @@ func main() {
 	configuration := &Configuration{}
 	configuration.Init(configFile)
 
-	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
+	conn, err := amqp.Dial(configuration.AMQP.Uri)
 	failOnError(err, "Failed to connect to RabbitMQ")
 
 	ch, err := conn.Channel()
