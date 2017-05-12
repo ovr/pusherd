@@ -89,15 +89,36 @@ func pushSender(client *fcm.FCM, db *gorm.DB, receive chan SerializedPushNotific
 
 			log.Print(registrationIDs)
 
+			title := task.Payload.Value["title"].Value
+			if title == nil {
+				log.Println("%s: %s", "Title is nill", title)
+
+				continue;
+			}
+
+			body := task.Payload.Value["body"].Value
+			if body == nil {
+				log.Println("%s: %s", "Body is nill", body)
+
+				continue;
+			}
+
+			sound := task.Payload.Value["sound"].Value
+			if sound == nil {
+				log.Println("%s: %s", "Sound is nill", body)
+
+				continue;
+			}
+
 			response, err := client.Send(&fcm.Message{
 				Data:             nil,
 				RegistrationIDs:  registrationIDs,
 				ContentAvailable: true,
 				Priority:         fcm.PriorityHigh,
 				Notification: &fcm.Notification{
-					Title: task.Payload.Value["title"].Value.(string),
-					Body:  task.Payload.Value["body"].Value.(string),
-					Sound: task.Payload.Value["sound"].Value.(string),
+					Title: title.(string),
+					Body:  body.(string),
+					Sound: sound.(string),
 				},
 			})
 
