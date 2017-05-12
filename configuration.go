@@ -1,14 +1,18 @@
 package main
 
 import (
-	"io/ioutil"
-	"fmt"
-	"os"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
 )
 
+type FCMConfiguration struct {
+	Key string `json:"key"`
+}
+
 type AMQPConfiguration struct {
-	Uri                string `json:"uri"`
+	Uri string `json:"uri"`
 }
 
 type DataBaseConfiguration struct {
@@ -22,6 +26,7 @@ type DataBaseConfiguration struct {
 }
 
 type Configuration struct {
+	FCM  FCMConfiguration      `json:"fcm"`
 	DB   DataBaseConfiguration `json:"db"`
 	AMQP AMQPConfiguration     `json:"amqp"`
 }

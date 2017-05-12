@@ -1,6 +1,10 @@
-hash: fdc2471f0cca5eac672dd29edba6c362a2949281404a1d757147ce2d3584b6f1
-updated: 2017-05-11T07:57:32.965652583Z
+hash: ad77bf0ab95034259d5cc906eeb5353830cdf0f9975734eae94fd382908ac888
+updated: 2017-05-12T04:17:09.023381951Z
 imports:
+- name: github.com/jinzhu/gorm
+  version: 5174cc5c242a728b435ea2be8a2f7f998e15429b
+- name: github.com/jinzhu/inflection
+  version: 1c35d901db3da928c72a72d8458480cc9ade058f
 - name: github.com/streadway/amqp
   version: afe8eee29a74d213b1f3fb2586058157c397da60
 - name: gopkg.in/maddevsio/fcm.v1
