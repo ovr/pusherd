@@ -39,7 +39,7 @@ func initAMQP(configuration *Configuration) *amqp.Channel {
 
 	err = ch.ExchangeDeclare(
 		"interpals",
-		"fanout",
+		"direct",
 		true,  // durable
 		false, // auto-deleted
 		false, // internal
