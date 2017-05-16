@@ -184,9 +184,9 @@ func main() {
 	db := initDB(configuration)
 	ch := initAMQP(configuration)
 
-	tasksChannel := make(chan SerializedPushNotificationTask, 100000)
+	tasksChannel := make(chan SerializedPushNotificationTask, configuration.Buffer)
 
-	for i := 0; i < 10; i++ {
+	for i := 0; i < configuration.Senders; i++ {
 		go pushSender(client, db, tasksChannel)
 	}
 

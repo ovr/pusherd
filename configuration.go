@@ -26,9 +26,11 @@ type DataBaseConfiguration struct {
 }
 
 type Configuration struct {
-	FCM  FCMConfiguration      `json:"fcm"`
-	DB   DataBaseConfiguration `json:"db"`
-	AMQP AMQPConfiguration     `json:"amqp"`
+	FCM     FCMConfiguration      `json:"fcm"`
+	DB      DataBaseConfiguration `json:"db"`
+	AMQP    AMQPConfiguration     `json:"amqp"`
+	Buffer  int                   `json:"buffer"`
+	Senders int                   `json:"senders"`
 }
 
 func (this *Configuration) Init(configFile string) {
