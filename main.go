@@ -52,7 +52,7 @@ func initAMQP(configuration *Configuration) *amqp.Channel {
 		"push-notifications",
 		true,
 		false,
-		true,
+		false,
 		false,
 		nil,
 	)
