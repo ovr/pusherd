@@ -1,19 +1,14 @@
 package main
 
-type SerializedJSONField struct {
-	Scalar string      `json:"@scalar"`
-	Value  interface{} `json:"@value"`
+type PushNotificationPayload struct {
+	Title string `json:"title"`
+	Body  string `json:"body"`
+	Sound string `json:"sound"`
 }
 
-type SerializedJSONArray struct {
-	Map   string                         `json:"@map"`
-	Value map[string]SerializedJSONField `json:"@value"`
-}
-
-type SerializedPushNotificationTask struct {
-	Type    string              `json:"@type"`
-	UserId  SerializedJSONField `json:"userId"`
-	Payload SerializedJSONArray `json:"payload"`
+type PushNotificationTask struct {
+	UserId  uint64                  `json:"user_id"`
+	Payload PushNotificationPayload `json:"payload"`
 }
 
 type PushToken struct {

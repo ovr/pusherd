@@ -70,12 +70,12 @@ func initAMQP(configuration *Configuration) *amqp.Channel {
 	return ch
 }
 
-func pushSender(client *fcm.FCM, db *gorm.DB, receive chan SerializedPushNotificationTask) {
+func pushSender(client *fcm.FCM, db *gorm.DB, receive chan PushNotificationTask) {
 	for {
 		for task := range receive {
 			pushTokens := []PushToken{}
 
-			db.Where("uid = ?", uint64(task.UserId.Value.(float64))).Find(&pushTokens)
+			db.Where("uid = ?", task.UserId).Find(&pushTokens)
 
 			if len(pushTokens) == 0 {
 				continue
@@ -87,38 +87,15 @@ func pushSender(client *fcm.FCM, db *gorm.DB, receive chan SerializedPushNotific
 				registrationIDs = append(registrationIDs, token.Id)
 			}
 
-			log.Print(registrationIDs)
-
-			title := task.Payload.Value["title"].Value
-			if title == nil {
-				log.Println("%s: %s", "Title is nill", title)
-
-				continue;
-			}
-
-			body := task.Payload.Value["body"].Value
-			if body == nil {
-				log.Println("%s: %s", "Body is nill", body)
-
-				continue;
-			}
-
-			sound := task.Payload.Value["sound"].Value
-			if sound == nil {
-				log.Println("%s: %s", "Sound is nill", body)
-
-				continue;
-			}
-
 			response, err := client.Send(&fcm.Message{
 				Data:             nil,
 				RegistrationIDs:  registrationIDs,
 				ContentAvailable: true,
 				Priority:         fcm.PriorityHigh,
 				Notification: &fcm.Notification{
-					Title: title.(string),
-					Body:  body.(string),
-					Sound: sound.(string),
+					Title: task.Payload.Title,
+					Body:  task.Payload.Body,
+					Sound: task.Payload.Sound,
 				},
 			})
 
@@ -137,7 +114,7 @@ func pushSender(client *fcm.FCM, db *gorm.DB, receive chan SerializedPushNotific
 	}
 }
 
-func consume(ch *amqp.Channel, tasksChannel chan SerializedPushNotificationTask) {
+func consume(ch *amqp.Channel, tasksChannel chan PushNotificationTask) {
 	receiveChannel, err := ch.Consume(
 		"push-notifications", // queue
 		"",                   // consumer
@@ -153,7 +130,7 @@ func consume(ch *amqp.Channel, tasksChannel chan SerializedPushNotificationTask)
 		for d := range receiveChannel {
 			log.Printf("Received a message: %s \n", d.Body)
 
-			task := SerializedPushNotificationTask{}
+			task := PushNotificationTask{}
 
 			err := json.Unmarshal(d.Body, &task)
 			if err != nil {
@@ -184,7 +161,7 @@ func main() {
 	db := initDB(configuration)
 	ch := initAMQP(configuration)
 
-	tasksChannel := make(chan SerializedPushNotificationTask, configuration.Buffer)
+	tasksChannel := make(chan PushNotificationTask, configuration.Buffer)
 
 	for i := 0; i < configuration.Senders; i++ {
 		go pushSender(client, db, tasksChannel)
