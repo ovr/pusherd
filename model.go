@@ -7,7 +7,7 @@ type PushNotificationPayload struct {
 }
 
 type PushNotificationTask struct {
-	UserId  uint64                  `json:"user_id"`
+	UserId  uint64                  `json:"userId"`
 	Payload PushNotificationPayload `json:"payload"`
 }
 
