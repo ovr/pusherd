@@ -88,7 +88,10 @@ func pushSender(client *fcm.FCM, db *gorm.DB, receive chan PushNotificationTask)
 			}
 
 			response, err := client.Send(&fcm.Message{
-				Data:             nil,
+				Data: map[string]string{
+					"image":           "https://static.pexels.com/photos/4825/red-love-romantic-flowers.jpg",
+					"AnotherActivity": "True",
+				},
 				RegistrationIDs:  registrationIDs,
 				ContentAvailable: true,
 				Priority:         fcm.PriorityHigh,
